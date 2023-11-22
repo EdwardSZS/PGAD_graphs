@@ -94,7 +94,7 @@ def tsplot2(y, y2=None, lags=None, figsize=(12, 7), style='bmh'):
 
 def cargar_datos_1():
     st.subheader("Condición de salud mala")
-    df = pd.read_csv('../Virus_02.csv',sep=',')
+    df = pd.read_csv('Virus_02.csv',sep=',')
     df['Date'] = pd.to_datetime(df['Date'], format='%d/%m/%Y')
     df.set_index('Date', inplace=True)
     st.subheader("📈Evaluación de series de tiempo")  
@@ -140,7 +140,7 @@ def cargar_datos_1():
 
 def cargar_datos_2():
     st.subheader("Condición de salud regular")
-    df = pd.read_csv('../Virus_00.csv',sep=',')
+    df = pd.read_csv('Virus_00.csv',sep=',')
     df['Date'] = pd.to_datetime(df['Date'], format='%d/%m/%Y')
     df.set_index('Date', inplace=True)
     st.subheader("📈Evaluación de series de tiempo")  
@@ -218,7 +218,7 @@ def ubicacion():
     ))
 def cargar_datos_3():
     st.subheader("Condición de salud buena")
-    df = pd.read_csv('../Virus_01.csv',sep=',')
+    df = pd.read_csv('Virus_01.csv',sep=',')
     df['Date'] = pd.to_datetime(df['Date'], format='%d/%m/%Y')
     df.set_index('Date', inplace=True)
     st.subheader("📈Evaluación de series de tiempo")  
