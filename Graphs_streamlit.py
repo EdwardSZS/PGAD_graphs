@@ -264,12 +264,12 @@ def cargar_datos_3():
         st.dataframe(df)
 
 def comparativo ():
-    #SALUD MALA
-    df1 = pd.read_csv('Virus_02.csv',sep=',')
+#SALUD MALA
+    df1 = pd.read_csv('../Virus_02.csv',sep=',')
     #SALUD REGULAR
-    df2 = pd.read_csv('Virus_00.csv',sep=',')
+    df2 = pd.read_csv('../Virus_00.csv',sep=',')
     #SALUD MALA
-    df3 = pd.read_csv('Virus_01.csv',sep=',')
+    df3 = pd.read_csv('../Virus_01.csv',sep=',')
     data1 = calculate_derivatives(df1)
     data2 = calculate_derivatives(df2)
     data3 = calculate_derivatives(df3)
@@ -277,43 +277,67 @@ def comparativo ():
     # Streamlit app
     st.title('Comparativos de velocidad y máximos entre los tres casos de salud')
     st.subheader("Comportamiento de Infectados en las distintas condiciones de salud", divider='rainbow' )
+    st.caption("Caso 1: Mala salud, Caso2: Salud Regular, Caso 3: Salud Buena" )
     # Plot the time series and derivatives
-    fig.add_trace(go.Scatter(x=data1['Date'], y=data1['Infected'], mode='lines', name='Infected Salud Mala'))
-    fig.add_trace(go.Scatter(x=data1['Date'], y=data1['derivative'], mode='lines', name='Velocity of Infected Salud Mala'))
+    fig.add_trace(go.Scatter(x=data1['Date'], y=data1['Infected'], mode='lines', name='Infected Caso 1'))
+    fig.add_trace(go.Scatter(x=data1['Date'], y=data1['derivative'], mode='lines', name='Velocity Caso 1'))
 
-    fig.add_trace(go.Scatter(x=data2['Date'], y=data2['Infected'], mode='lines', name='Infected Salud Regular'))
-    fig.add_trace(go.Scatter(x=data2['Date'], y=data2['derivative'], mode='lines', name='Velocity Infected Salud Regular'))
+    fig.add_trace(go.Scatter(x=data2['Date'], y=data2['Infected'], mode='lines', name='Infected Caso 2'))
+    fig.add_trace(go.Scatter(x=data2['Date'], y=data2['derivative'], mode='lines', name='Velocity Caso 2'))
 
-    fig.add_trace(go.Scatter(x=data3['Date'], y=data3['Infected'], mode='lines', name='Infected Salud Buena'))
-    fig.add_trace(go.Scatter(x=data3['Date'], y=data3['derivative'], mode='lines', name='velocity Infected Salud Buena'))
+    fig.add_trace(go.Scatter(x=data3['Date'], y=data3['Infected'], mode='lines', name='Infected Caso 3'))
+    fig.add_trace(go.Scatter(x=data3['Date'], y=data3['derivative'], mode='lines', name='velocity Caso 3'))
 
+    
+    fig.update_layout(
+        title='Infectados en tres condiciones',
+        xaxis_title='Días',
+        yaxis_title='Cantidad de población',
+        showlegend=True
+    )
+    
     st.plotly_chart(fig)
 
     fig1 = go.Figure()
 
 
     st.subheader("Comportamiento de Fallecidos en las distintas condiciones de salud", divider='rainbow' )
+    st.caption("Caso 1: Mala salud, Caso 2: Salud Regular, Caso 3: Salud Buena" )
     # Plot the time series and derivatives
-    fig1.add_trace(go.Scatter(x=data1['Date'], y=data1['Dead'], mode='lines', name='Dead Salud Mala'))
-    fig1.add_trace(go.Scatter(x=data1['Date'], y=data1['derivative'], mode='lines', name='Velocity of Dead Salud Mala'))
+    fig1.add_trace(go.Scatter(x=data1['Date'], y=data1['Dead'], mode='lines', name='Dead Caso 1'))
+    fig1.add_trace(go.Scatter(x=data1['Date'], y=data1['derivative'], mode='lines', name='Velocity Caso 1'))
 
-    fig1.add_trace(go.Scatter(x=data2['Date'], y=data2['Dead'], mode='lines', name='Dead Salud Regular'))
-    fig1.add_trace(go.Scatter(x=data2['Date'], y=data2['derivative'], mode='lines', name='Velocity Dead Salud Regular'))
+    fig1.add_trace(go.Scatter(x=data2['Date'], y=data2['Dead'], mode='lines', name='Dead  Caso 2'))
+    fig1.add_trace(go.Scatter(x=data2['Date'], y=data2['derivative'], mode='lines', name='Velocity Caso 2'))
 
-    fig1.add_trace(go.Scatter(x=data3['Date'], y=data3['Dead'], mode='lines', name='Dead Salud Buena'))
-    fig1.add_trace(go.Scatter(x=data3['Date'], y=data3['derivative'], mode='lines', name='velocity Dead Salud Buena'))
+    fig1.add_trace(go.Scatter(x=data3['Date'], y=data3['Dead'], mode='lines', name='Dead Caso 3'))
+    fig1.add_trace(go.Scatter(x=data3['Date'], y=data3['derivative'], mode='lines', name='velocity Caso 3'))
+    fig1.update_layout(
+        title='Fallecidos en tres condiciones',
+        xaxis_title='Días',
+        yaxis_title='Cantidad de población',
+        showlegend=True
+    )
     st.plotly_chart(fig1)
 
+
     st.subheader("Comparativo entre Fallecidos e Infectados", divider='rainbow' )
+    st.caption("Caso 1: Mala salud, Caso2: Salud Regular, Caso 3: Salud Buena" )
     fig2=go.Figure()
-    fig2.add_trace(go.Scatter(x=data1['Date'], y=data1['Dead'], mode='lines', name='Dead Salud Mala'))
-    fig2.add_trace(go.Scatter(x=data1['Date'], y=data1['Infected'], mode='lines', name='Infected of Dead Salud Mala'))
+    fig2.add_trace(go.Scatter(x=data1['Date'], y=data1['Dead'], mode='lines', name='Dead Caso 1'))
+    fig2.add_trace(go.Scatter(x=data1['Date'], y=data1['Infected'], mode='lines', name='Infected Caso 1'))
 
-    fig2.add_trace(go.Scatter(x=data2['Date'], y=data2['Dead'], mode='lines', name='Dead Salud Regular'))
-    fig2.add_trace(go.Scatter(x=data2['Date'], y=data2['Infected'], mode='lines', name='Infected Salud Regular'))
+    fig2.add_trace(go.Scatter(x=data2['Date'], y=data2['Dead'], mode='lines', name='Dead Caso 2'))
+    fig2.add_trace(go.Scatter(x=data2['Date'], y=data2['Infected'], mode='lines', name='Infected Caso2'))
 
-    fig2.add_trace(go.Scatter(x=data3['Date'], y=data3['Dead'], mode='lines', name='Dead Salud Buena'))
+    fig2.add_trace(go.Scatter(x=data3['Date'], y=data3['Dead'], mode='lines', name='Dead Caso 3'))
     fig2.add_trace(go.Scatter(x=data3['Date'], y=data3['Infected'], mode='lines', name='Infected Salud Buena'))
+    fig2.update_layout(
+        title='Comparativo entre Fallecidos e Infectados',
+        xaxis_title='Días',
+        yaxis_title='Cantidad de población',
+        showlegend=True
+    )
     st.plotly_chart(fig2)
 
 def calculate_derivatives(data):
