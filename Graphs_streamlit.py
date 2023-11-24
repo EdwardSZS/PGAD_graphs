@@ -40,6 +40,7 @@ def inicio():
     st.title('Descripción estadística sobre le Covid_19')
     st.header("Revisón de información")
     st.subheader("Simulación de datos sobre el Covid_19 con pygame")
+    st.subheader("Emulación de rangos de edad para Bogotá")
     ubicacion()
 
 def estadistica():
@@ -61,7 +62,7 @@ def dibujar_graficas(salud ):
     if salud == "Salud Buena":
         cargar_datos_3()
 
-def tsplot2(y, y2=None, lags=None, figsize=(12, 7), style='bmh'):
+def tsplot2(y, y2=None, lags=None, figsize=(12, 7), style='bmh',serie1="serie1",serie2="serie2"):
 
     if not isinstance(y, pd.Series):
         y = pd.Series(y)
@@ -73,11 +74,11 @@ def tsplot2(y, y2=None, lags=None, figsize=(12, 7), style='bmh'):
         acf_ax = plt.subplot2grid(layout, (1, 0))
         pacf_ax = plt.subplot2grid(layout, (1, 1))
 
-        y.plot(ax=ts_ax, label='Serie 1')
+        y.plot(ax=ts_ax, label=serie1)
         if y2 is not None:
             if not isinstance(y2, pd.Series):
                 y2 = pd.Series(y2)
-            y2.plot(ax=ts_ax, label='Serie 2', color='r')
+            y2.plot(ax=ts_ax, label=serie2, color='r')
         ts_ax.legend()
 
         p_value = sm.tsa.stattools.adfuller(y)[1]
@@ -94,17 +95,17 @@ def tsplot2(y, y2=None, lags=None, figsize=(12, 7), style='bmh'):
 
 def cargar_datos_1():
     st.subheader("Condición de salud mala")
-    df = pd.read_csv('Virus_02.csv',sep=',')
+    df = pd.read_csv('../Virus_02.csv',sep=',')
     df['Date'] = pd.to_datetime(df['Date'], format='%d/%m/%Y')
     df.set_index('Date', inplace=True)
-    st.subheader("📈Evaluación de series de tiempo")  
+    st.subheader("📈Evaluación de series de tiempo", divider='rainbow')  
     
-    st.caption("Infectados vs Fallecidos" )
-    tsplot2(df['Infected'], df['Dead'],lags=20)
-    st.caption("Susceptibles vs Fallecidos" )
-    tsplot2(df['Susceptible'], df['Dead'],lags=20)
-    st.caption("Recuperados vs Fallecidos" )
-    tsplot2(df['Recovered'], df['Dead'],lags=20)
+    st.subheader("Infectados vs Fallecidos" , divider='rainbow')
+    tsplot2(df['Infected'], df['Dead'],lags=20,serie1="Infected",serie2="Dead")
+    st.subheader("Susceptibles vs Fallecidos" , divider='rainbow')
+    tsplot2(df['Susceptible'], df['Dead'],lags=20,serie1="Susceptible",serie2="Dead")
+    st.subheader("Recuperados vs Fallecidos" , divider='rainbow')
+    tsplot2(df['Recovered'], df['Dead'],lags=20,serie1="Recovered",serie2="Dead")
     fig = go.Figure()
     for col in df.columns:
         fig.add_trace(go.Scatter(x=df.index, y=df[col], mode='lines', fill='tozeroy', name=col))
@@ -140,17 +141,17 @@ def cargar_datos_1():
 
 def cargar_datos_2():
     st.subheader("Condición de salud regular")
-    df = pd.read_csv('Virus_00.csv',sep=',')
+    df = pd.read_csv('../Virus_00.csv',sep=',')
     df['Date'] = pd.to_datetime(df['Date'], format='%d/%m/%Y')
     df.set_index('Date', inplace=True)
-    st.subheader("📈Evaluación de series de tiempo")  
+    st.subheader("📈Evaluación de series de tiempo", divider='rainbow')  
     
-    st.caption("Infectados vs Fallecidos" )
-    tsplot2(df['Infected'], df['Dead'],lags=20)
-    st.caption("Susceptibles vs Fallecidos" )
-    tsplot2(df['Susceptible'], df['Dead'],lags=20)
-    st.caption("Recuperados vs Fallecidos" )
-    tsplot2(df['Recovered'], df['Dead'],lags=20)
+    st.subheader("Infectados vs Fallecidos" , divider='rainbow')
+    tsplot2(df['Infected'], df['Dead'],lags=20,serie1="Infected",serie2="Dead")
+    st.subheader("Susceptibles vs Fallecidos", divider='rainbow' )
+    tsplot2(df['Susceptible'], df['Dead'],lags=20,serie1="Susceptible",serie2="Dead")
+    st.subheader("Recuperados vs Fallecidos", divider='rainbow' )
+    tsplot2(df['Recovered'], df['Dead'],lags=20,serie1="Recovered",serie2="Dead")
     fig = go.Figure()
     for col in df.columns:
         fig.add_trace(go.Scatter(x=df.index, y=df[col], mode='lines', fill='tozeroy', name=col))
@@ -201,9 +202,9 @@ def ubicacion():
                'HexagonLayer',
                data=chart_data,
                get_position='[lon, lat]',
-               radius=200,
-               elevation_scale=4,
-               elevation_range=[0, 1000],
+               radius=150,
+               elevation_scale=30,
+               elevation_range=[30, 90],
                pickable=True,
                extruded=True,
             ),
@@ -212,23 +213,23 @@ def ubicacion():
                 data=chart_data,
                 get_position='[lon, lat]',
                 get_color='[200, 30, 0, 160]',
-                get_radius=200,
+                get_radius=150,
             ),
         ],
     ))
 def cargar_datos_3():
     st.subheader("Condición de salud buena")
-    df = pd.read_csv('Virus_01.csv',sep=',')
+    df = pd.read_csv('../Virus_01.csv',sep=',')
     df['Date'] = pd.to_datetime(df['Date'], format='%d/%m/%Y')
     df.set_index('Date', inplace=True)
-    st.subheader("📈Evaluación de series de tiempo")  
+    st.subheader("📈Evaluación de series de tiempo", divider='rainbow')  
     
-    st.caption("Infectados vs Fallecidos" )
-    tsplot2(df['Infected'], df['Dead'],lags=20)
-    st.caption("Susceptibles vs Fallecidos" )
-    tsplot2(df['Susceptible'], df['Dead'],lags=20)
-    st.caption("Recuperados vs Fallecidos" )
-    tsplot2(df['Recovered'], df['Dead'],lags=20)
+    st.subheader("Infectados vs Fallecidos", divider='rainbow' )
+    tsplot2(df['Infected'], df['Dead'],lags=20,serie1="Infected",serie2="Dead")
+    st.subheader("Susceptibles vs Fallecidos", divider='rainbow' )
+    tsplot2(df['Susceptible'], df['Dead'],lags=20,serie1="Susceptible",serie2="Dead")
+    st.subheader("Recuperados vs Fallecidos", divider='rainbow' )
+    tsplot2(df['Recovered'], df['Dead'],lags=20,serie1="Recovered",serie2="Dead")
     fig = go.Figure()
     for col in df.columns:
         fig.add_trace(go.Scatter(x=df.index, y=df[col], mode='lines', fill='tozeroy', name=col))
