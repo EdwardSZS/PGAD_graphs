@@ -41,10 +41,10 @@ def main():
 
 
 def inicio():
-    st.title('Descripción estadística sobre le Covid_19')
+    st.title('Descripción estadística sobre el Covid_19')
     st.header("Revisón de información")
     st.subheader("Simulación de datos sobre el Covid_19 con pygame")
-    st.subheader("Emulación de rangos de edad para Bogotá")
+    st.subheader("Emulación de rangos de edad para Bogotá", divider='rainbow' )
     ubicacion()
 
 def estadistica():
