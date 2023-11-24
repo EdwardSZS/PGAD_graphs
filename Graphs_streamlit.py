@@ -265,11 +265,11 @@ def cargar_datos_3():
 
 def comparativo ():
 #SALUD MALA
-    df1 = pd.read_csv('../Virus_02.csv',sep=',')
+    df1 = pd.read_csv('Virus_02.csv',sep=',')
     #SALUD REGULAR
-    df2 = pd.read_csv('../Virus_00.csv',sep=',')
+    df2 = pd.read_csv('Virus_00.csv',sep=',')
     #SALUD MALA
-    df3 = pd.read_csv('../Virus_01.csv',sep=',')
+    df3 = pd.read_csv('Virus_01.csv',sep=',')
     data1 = calculate_derivatives(df1)
     data2 = calculate_derivatives(df2)
     data3 = calculate_derivatives(df3)
